@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebApplication1.dtos;
 
 namespace WebApplication1.Controllers
 {
@@ -32,6 +33,29 @@ namespace WebApplication1.Controllers
         {
             string result = $"Foi passado o parametro {name}";
             return Ok(result);
+        }
+
+        [HttpPost("api/info5")]
+        public IActionResult GetInfo5([FromBody] Corpo corpo)
+        {
+            string result = $"Foi passado o parametro {corpo.Nome} e {corpo.Idade} e {string.Join(", ", corpo.Sobrenomes)}";
+
+            if (corpo.Idade is null)
+            {
+                return BadRequest(new { 
+                erro = true,
+                message = "Idade não pode ser Nulo"
+                });
+            }
+
+            return Ok(new
+            {
+
+                nome = corpo.Nome,
+                idade = corpo.Idade,
+                sobrenomes = corpo.Sobrenomes
+
+            });
         }
     }
 }

@@ -4,8 +4,9 @@
 
 namespace WebApplication1.Controllers
 {
-    [Route("api/[controller]")]
+   
     [ApiController]
+    [Route("api/[controller]")]
     public class TesteController : ControllerBase
     {
         // GET: api/<TesteController>
