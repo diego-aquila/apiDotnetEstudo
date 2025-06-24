@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1.dtos;
+using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
@@ -7,6 +8,23 @@ namespace WebApplication1.Controllers
     [Route("[controller]")]
     public class HomeController : Controller
     {
+        private static List<Estado> listEstados = new List<Estado>();
+
+
+        [HttpGet("estados")]
+        public IActionResult GetEstados()
+        {
+            
+            return Ok(listEstados);
+        } 
+        
+        [HttpPost("estados")]
+        public IActionResult PostEstados([FromBody] Estado estado)
+        {
+            listEstados.Add(estado);
+            return Ok("Estado inserido");
+        }
+
         [HttpGet]
         public IActionResult GetInfo()
         {
