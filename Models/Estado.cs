@@ -11,5 +11,7 @@ namespace WebApplication1.Models
         [Required(ErrorMessage ="O campo nome é obrigatório")]
         [StringLength(60, MinimumLength = 3, ErrorMessage ="Campo nome deve ter entre 3 e 60 caracteres")]
         public string Nome { get; set; }
+
+
     }
 }

@@ -1,4 +1,6 @@
 
+using Microsoft.EntityFrameworkCore;
+
 namespace WebApplication1
 {
     public class Program
@@ -6,6 +8,11 @@ namespace WebApplication1
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Adiciona string de cnexão do appSettings
+            var connectionString = builder.Configuration.GetConnectionString("ConnectionPostgres");
+            builder.Services.AddDbContext<Data.ProjectDbContext>(options =>
+                options.UseNpgsql(connectionString));
 
             // Add services to the container.
 
