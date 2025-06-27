@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApplication1.Migrations
 {
     /// <inheritdoc />
-    public partial class Inicialverbose : Migration
+    public partial class inicalSqlServer : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,8 +15,8 @@ namespace WebApplication1.Migrations
                 name: "Estado",
                 columns: table => new
                 {
-                    Sigla = table.Column<string>(type: "character varying(2)", maxLength: 2, nullable: false),
-                    Nome = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: false)
+                    Sigla = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,11 +27,11 @@ namespace WebApplication1.Migrations
                 name: "Usuario",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Nome = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    Login = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    Password = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    Funcao = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Login = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Funcao = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,9 +42,9 @@ namespace WebApplication1.Migrations
                 name: "Cidade",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Nome = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    EstadoSigla = table.Column<string>(type: "character varying(2)", maxLength: 2, nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    EstadoSigla = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,14 +61,14 @@ namespace WebApplication1.Migrations
                 name: "Pessoa",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Nome = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    Telefone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    DataNascimento = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Salario = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
-                    Genero = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    CidadeId = table.Column<Guid>(type: "uuid", nullable: true)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Telefone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Salario = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Genero = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    CidadeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -84,13 +84,13 @@ namespace WebApplication1.Migrations
                 name: "Conta",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Descricao = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    Valor = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
-                    DataVencimento = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DataPagamento = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Situacao = table.Column<int>(type: "integer", nullable: false),
-                    PessoaId = table.Column<Guid>(type: "uuid", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DataVencimento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataPagamento = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Situacao = table.Column<int>(type: "int", nullable: false),
+                    PessoaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {

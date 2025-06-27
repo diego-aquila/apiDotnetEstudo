@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.IdentityModel.Tokens;
 using WebApplication1.Data;
 using WebApplication1.Models;
 
@@ -31,11 +32,63 @@ namespace WebApplication1.Controllers
             
         }
 
+        [HttpGet("{sigla}")]
+        public IActionResult GetEstadoBySigla([FromRoute] string sigla)
+        {
+            try
+            {
+                Estado? result = _context.Estado.Find(sigla.ToUpper());
+
+                if (result is Estado)
+                {
+                return Ok(result);
+                    
+                }
+
+                return BadRequest($"O estado {sigla} não foi encontrado");
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest($"Erro ao buscar estados: {e.Message}");
+            }
+
+
+        }
+
+        [HttpGet("Pesquisa")]
+        public IActionResult GetEstadoPesquisa([FromQuery] string valor)
+        {
+            try
+            {
+                var lista = from o in _context.Estado.ToList()
+                            where o.Sigla.ToUpper().Contains(valor.ToUpper()) 
+                            || o.Nome.ToUpper().Contains(valor.ToUpper())
+                            select o;
+
+                if (lista.Any())
+                {
+                    return Ok(lista);
+                }
+
+                return BadRequest("Sua busca não houve retorno");
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest($"Erro ao buscar estados: {e.Message}");
+            }
+
+
+        }
+
         [HttpPost]
         public IActionResult CreateEstado([FromBody] Estado estado)
         {
             try
             {
+                estado.Sigla = estado.Sigla.ToUpper();
+
                 EntityEntry<Estado> estadoInserido = _context.Estado.Add(estado);
                 int insercao = _context.SaveChanges();
 

@@ -10,9 +10,9 @@ namespace WebApplication1
             var builder = WebApplication.CreateBuilder(args);
 
             // Adiciona string de cnexão do appSettings
-            var connectionString = builder.Configuration.GetConnectionString("ConnectionPostgres");
+            var connectionString = builder.Configuration.GetConnectionString("ConnectionSQLServer");
             builder.Services.AddDbContext<Data.ProjectDbContext>(options =>
-                options.UseNpgsql(connectionString));
+                options.UseSqlServer(connectionString));
 
             // Add services to the container.
 
