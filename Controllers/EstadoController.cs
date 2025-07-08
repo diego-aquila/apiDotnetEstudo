@@ -45,7 +45,7 @@ namespace WebApplication1.Controllers
                     
                 }
 
-                return BadRequest($"O estado {sigla} não foi encontrado");
+                return NotFound($"O estado {sigla} não foi encontrado");
 
             }
             catch (Exception e)
@@ -71,7 +71,33 @@ namespace WebApplication1.Controllers
                     return Ok(lista);
                 }
 
-                return BadRequest("Sua busca não houve retorno");
+                return NotFound("Sua busca não houve retorno");
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest($"Erro ao buscar estados: {e.Message}");
+            }
+
+
+        }
+
+        [HttpGet("Paginacao")]
+        public IActionResult GetEstadoPaginacao([FromQuery] string valor, int skip, int take, bool ordemDesc)
+        {
+            try
+            {
+                var lista = from o in _context.Estado.ToList()
+                            where o.Sigla.ToUpper().Contains(valor.ToUpper())
+                            || o.Nome.ToUpper().Contains(valor.ToUpper())
+                            select o;
+
+                if (lista.Any())
+                {
+                    return Ok(lista);
+                }
+
+                return NotFound("Sua busca não houve retorno");
 
             }
             catch (Exception e)
