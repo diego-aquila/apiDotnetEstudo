@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace WebApplication1.Models
 {
@@ -23,6 +24,7 @@ namespace WebApplication1.Models
         }
 
         //Relacionamento Entity Framework
+        [JsonIgnore]
         public Estado Estado { get; set; }
     }
 }
